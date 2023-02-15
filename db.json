@@ -1,0 +1,25 @@
+{
+    "home":{
+        "profile":{
+            "information":"đang học chuyên ngành website kì 5 tại cao đẳng FPOLY",
+            "interest": "nghe nhạc, đá bóng, bóng rổ"
+        },
+        "banner":"",
+        "testimonial":"",
+        "skill": "Từng làm việc với php, SQL, java, html, css, javascrip"
+    },
+    "portgolio":{
+        "name":"Nguyễn Trí Thức",
+        "describe":"",
+        "avatar":"",
+        "album":["",""],
+        "project": {
+            "github":"",
+            "preview":"",
+            "completionTime":"",
+            "feedback":"",
+            "technology":"",
+            "category":["html_css_js","Reactjs","Php larvel"]
+        }
+    }
+}
