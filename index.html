@@ -6,12 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite App</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              clifford: "#da373d",
+            },
+          },
+        },
+      };
+    </script>
     <link href="./src/style.css" rel="stylesheet" />
   </head>
-  <body>
-    <a class="underline text-sky-400" href="/">Home Page</a>
-    <a class="underline text-sky-400" href="/AboutPage">About page</a>
-    <a class="underline text-sky-400" href="/productspage">productspage</a>
+  <body class="container mx-auto">
+    <div class="flex gap-10 justify-center">
+      <a class="underline text-sky-400" href="/">Home Page</a>
+      <a class="underline text-sky-400" href="/AboutPage">About page</a>
+      <a class="underline text-sky-400" href="/productspage">productspage</a>
+      <a class="underline text-sky-400" href="/admin/products">Admin</a>
+    </div>
+
     <div id="app"></div>
     <script type="module" src="./src/main.js"></script>
   </body>

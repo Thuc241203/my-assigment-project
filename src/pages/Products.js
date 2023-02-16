@@ -5,8 +5,7 @@ import { products } from "@/data";
 const ProductsPage = () => {
   return `
     
-    <div class="container flex justify-center gap-10">
-        
+    <div class="flex justify-center gap-10">  
       ${ProductList({ products })}
     </div>`;
 }
