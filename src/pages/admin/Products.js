@@ -1,4 +1,4 @@
-import { products } from "@/data";
+import { products} from "@/data";
 import { useEffect, useState } from "@/utilities";
 
 const AdminProductsPage = () => {
