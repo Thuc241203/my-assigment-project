@@ -1,6 +1,8 @@
 import { useEffect, router } from "@/utilities"
-import { products } from "@/data";
-const AdminProductsAddPage = () => {
+// import { products } from "@/data";
+const AdminProductAddPage = () => {  
+
+    const products = JSON.parse(localStorage.getItem('products')) || [];  
     useEffect(() => {
         const form = document.getElementById('form-add');
         const productName = document.getElementById('product-name');
@@ -14,6 +16,8 @@ const AdminProductsAddPage = () => {
                 price: productPrice.value
             }
                 products.push(newProduct);
+
+                localStorage.setItem('products', JSON.stringify(products));
 
                 router.navigate('/admin/products');
         });
@@ -41,4 +45,4 @@ const AdminProductsAddPage = () => {
   
 }
 
-export default AdminProductsAddPage
+export default AdminProductAddPage;
