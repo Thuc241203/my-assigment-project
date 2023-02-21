@@ -1,8 +1,7 @@
 import { useEffect, router } from "@/utilities"
-// import { products } from "@/data";
+import axios from "axios";
 const AdminProductAddPage = () => {  
-
-    const products = JSON.parse(localStorage.getItem('products')) || [];  
+ 
     useEffect(() => {
         const form = document.getElementById('form-add');
         const productName = document.getElementById('product-name');
@@ -11,15 +10,14 @@ const AdminProductAddPage = () => {
         form.addEventListener('submit', function(e){
             e.preventDefault();
             const newProduct = {
-                id:products.length +1,
                 name: productName.value,
                 price: productPrice.value
-            }
-                products.push(newProduct);
+            };
+                axios.post("http://localhost:3000/projects", newProduct)
+                .then(() => {
+                    router.navigate('/admin/products');
+                })
 
-                localStorage.setItem('products', JSON.stringify(products));
-
-                router.navigate('/admin/products');
         });
     }); 
   return `

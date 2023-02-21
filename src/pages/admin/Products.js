@@ -1,12 +1,14 @@
-// import { products} from "@/data";
+
 import { useEffect, useState } from "@/utilities";
+
+import axios from "axios";
 
 const AdminProductsPage = () => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        const products = JSON.parse(localStorage.getItem("products")) || [];
-        setData(products);
+        axios.get("http://localhost:3000/projects")
+        .then(({data}) => setData(data));
     }, []);     
 
     useEffect(() => {
@@ -14,12 +16,15 @@ const AdminProductsPage = () => {
         for (let btn of btns) {
             btn.addEventListener("click", function () {
                 const id = this.dataset.id;
-                const newProducts = data.filter((product) => product.id !== +id);
-                setData(newProducts);
-                localStorage.setItem('products', JSON.stringify(newProducts))
+                axios.delete(`http://localhost:3000/projects/${id}`)
+                .then(()=> {
+                    const newProducts = data.filter((projects) => projects.id !== id);
+                    setData(newProducts);
+                })
             });
         }
     });
+    
   return `
   <div class="container mx-auto mt-10" >
   <table class="border container">
@@ -32,6 +37,7 @@ const AdminProductsPage = () => {
             </tr>
         </thead>
         <tbody class="text-center">
+        
             ${data.map(
                 (product, index) => ` 
                 <tr class="border">
