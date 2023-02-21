@@ -1,5 +1,6 @@
+import { addProject } from "@/api/project";
 import { useEffect, router } from "@/utilities"
-import axios from "axios";
+
 const AdminProductAddPage = () => {  
  
     useEffect(() => {
@@ -7,17 +8,17 @@ const AdminProductAddPage = () => {
         const productName = document.getElementById('product-name');
         const productPrice = document.getElementById('product-price');
 
-        form.addEventListener('submit', function(e){
+        form.addEventListener('submit', async function(e){
             e.preventDefault();
-            const newProduct = {
+            try {
+              await  addProject({
                 name: productName.value,
-                price: productPrice.value
-            };
-                axios.post("http://localhost:3000/projects", newProduct)
-                .then(() => {
-                    router.navigate('/admin/products');
-                })
-
+                price: productPrice.value,
+              });
+              router.navigate('/admin/products');
+            } catch (error) {
+              console.log(error)
+            }
         });
     }); 
   return `

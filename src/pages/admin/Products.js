@@ -1,26 +1,37 @@
 
+import { deleteProject, getProjects } from "@/api/project";
 import { useEffect, useState } from "@/utilities";
 
-import axios from "axios";
 
 const AdminProductsPage = () => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:3000/projects")
-        .then(({data}) => setData(data));
+        (async() => {
+            try {
+                setData(await getProjects());
+            } catch (error) {
+                console.log(error);
+            }
+        })();
     }, []);     
 
     useEffect(() => {
         const btns = document.querySelectorAll(".btn-remove");
         for (let btn of btns) {
-            btn.addEventListener("click", function () {
+            btn.addEventListener("click", async function () {
                 const id = this.dataset.id;
-                axios.delete(`http://localhost:3000/projects/${id}`)
-                .then(()=> {
-                    const newProducts = data.filter((projects) => projects.id !== id);
-                    setData(newProducts);
-                })
+                const confirm = window.confirm("bạn có chắc chắn muốn xóa không?");
+                if(confirm) {
+                    try {
+                        await deleteProject(id);
+                        const newProjects = data.filter((dataProjects) => dataProjects.id !== id);
+                        setData(newProjects);
+                    } catch (error) {
+                        console.log(error)
+                    }
+                   
+                }
             });
         }
     });

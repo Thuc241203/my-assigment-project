@@ -1,27 +1,34 @@
+import { updateProject, getProject} from "@/api/project";
 import { useEffect, router, useState } from "@/utilities"
-import axios from "axios";
 
 const AdminProductEditPage = ({ id }) => {   
     const [data, setData] = useState({});
     useEffect(() => {
-      axios.get(`http://localhost:3000/projects/${id}`)
-      .then(({data}) => setData(data));
-    }, []);
+      (async() => {
+        try {
+           setData(await getProject(id))
+        } catch (error) { 
+          console.log(error);
+        }
+      })();
+  }, []);  
     useEffect(() => {
         const form = document.getElementById('form-add');
         const productName = document.getElementById('product-name');
         const productPrice = document.getElementById('product-price');
 
-        form.addEventListener("submit", function (e) {
+        form.addEventListener("submit", async function (e) {
             e.preventDefault();
-            const formData = {
+            try {
+              await updateProject({
+                id,
                 name: productName.value,
                 price: productPrice.value,
+              });
+              router.navigate('/admin/products'); 
+            } catch (error) {
+                console.log(error);
             }
-              axios.put(`http://localhost:3000/projects/${id}`, formData)
-              .then(() => {
-                router.navigate('/admin/products'); 
-              })
         });
     }); 
     
@@ -35,7 +42,7 @@ const AdminProductEditPage = ({ id }) => {
         </div>
         <div class="form-group mt-2 mb-2  ">
           <lable for="">Giá sản phẩm</lable>
-          <input type="text" id="product-price" class=" border border-black" value="${data.price ?? "" } "/>
+          <input type="text" id="product-price" class=" border border-black" value="${data.price ?? "" }"/>
 
         </div>
         <div class="form-group" >
